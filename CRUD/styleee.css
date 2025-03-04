@@ -1,0 +1,149 @@
+
+*
+{
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+}
+body{
+    background-color: lightblue;
+    padding: 0 10px;
+}
+.container
+{
+    max-width: 400px;   
+    background-color: white;
+    margin: 20px 500px;
+    padding: 30px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: lightblue;
+    text-transform: uppercase;
+    text-align: center;
+}
+.input_field
+{
+    margin-bottom: 15px;
+    display:flex;
+    align-items: center;
+}
+.input_field label
+{
+    width: 100%;
+    margin-right: 10px;
+    font-size: 14px;
+}                                                                                                                          
+.input_field .input,
+.input_field .textarea
+{
+    width: 100%;
+    outline: none;
+    border: 1px solid lightblue;
+    font-size: 15px;
+    padding: 8px 10px;
+    border-radius: 3px;
+    transition: all 0.5s ease;
+}
+.input_field .textarea
+{
+    resize: none;
+    height: 50px;
+}
+.input_field .custom_select
+{
+    position: relative;
+    width: 100%;
+}
+.input_field .custom_select select 
+{
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 8px 10px;
+    border: 1px solid lightblue;
+    width: 100%;
+    height: 35px;
+    border-radius: 3px;
+}
+.input_field .custom_select::after
+{
+    content: "";
+    position: absolute;
+    top: 15px;
+    right: 85px;
+    border: 8px solid black;
+    border-color: lightblue transparent transparent transparent;
+    pointer-events:none;
+}
+.input_field .input:focus,
+.input_field .textarea:focus,
+.input_field select:focus
+{
+    border: 1px solid lightgreen;
+}
+.input_field p
+{
+    font-size: 14px;
+    color: #757575;
+}
+.container .Form .input_field .check
+{
+    width: 15px;
+    height: 15px;
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+.input_field .btn
+{
+    padding: 8px 10px;
+    font-size: 15px;
+    border: 0;
+    background: lightblue;
+    color: black;
+    cursor: pointer;
+    border-radius: 3px;
+    outline: none;
+}
+.container .Form .input_field:last-child
+{
+    margin-bottom: 0%;
+}
+.container .Form .input_field .btn:hover
+{
+    background: rgb(60, 175, 247) ;
+}
+.radio-label{
+    width: 100%;
+}
+input#SC{
+    margin-left: 15px;
+}
+input#general{
+    margin-left: 30px;
+}
+@media screen and (max-width: 420px)
+{
+    .container{
+        margin: 10px 20px;
+    }
+    .input_field{
+        display: flex;
+        flex-direction: row;
+    }
+    .input_field label
+    {
+        margin-bottom: 5px;
+    }
+    .input_field.terms
+    {
+        flex-direction: row;
+    }
+}

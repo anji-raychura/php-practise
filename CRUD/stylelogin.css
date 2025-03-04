@@ -1,0 +1,48 @@
+*
+{
+    padding: 0%;
+    margin: 0%;   
+    box-sizing: border-box;
+}
+body{
+    background-color: white;
+    padding: 0 10px;
+}
+.container
+{
+    max-width: 300px;   
+    background-color:lightblue;
+    margin: 20px auto;
+    padding: 30px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+    padding-left: auto;
+    padding-right: auto;
+    margin-top: 150px;
+}
+.container .title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom:auto;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    align-items: center;
+}
+.input_field
+{
+    margin-top: 20px;
+    /* display: flex; */
+    margin-bottom: 15px;
+     display:flex; 
+    align-items: center;
+}
+.input_field label
+{
+    width: 100%;
+    margin-right: 10px;
+    font-size: 14px;
+} 
+.forgetpassword
+{
+    align-items: center;
+}
