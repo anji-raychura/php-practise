@@ -1,6 +1,7 @@
 
 <?php
 session_start();
+//error_reporting(0);
 include("connection.php");
 
 if (isset($_POST['submit'])) {
@@ -18,13 +19,13 @@ if (isset($_POST['submit'])) {
         $token = bin2hex(random_bytes(50));
 
         // Store token in the database
-        $updateQuery = "UPDATE alldata SET reset_token=? WHERE email=?";
+        $updateQuery = "UPDATE alldata SET reset_token=? WHERE email=?";  
         $stmt = mysqli_prepare($conn, $updateQuery);
         
         if (!$stmt) {
             die("Update query preparation failed: " . mysqli_error($conn));
         }
-        
+          
        // $stmt = mysqli_prepare($conn, $updateQuery);
         mysqli_stmt_bind_param($stmt, "ss", $token, $email);
         mysqli_stmt_execute($stmt);
@@ -35,7 +36,7 @@ if (isset($_POST['submit'])) {
         $message = "Click the link below to reset your password: $reset_link";
         $headers = "From: noreply@yourwebsite.com";
 
-        if (mail($email, $subject, $message, $headers)) {
+        if (mail($email, $subject, $message, $headers)) {              
             echo "Password reset link has been sent to your email.";
         } else {
             echo "Failed to send email.";
@@ -45,7 +46,7 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
-
+  
 <!DOCTYPE html>
 <html lang="en">
 <head>

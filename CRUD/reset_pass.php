@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
 </head>
 <body>
     <form action="" method="POST">
-        <h2>Reset Password</h2>
+        <h2>Reset Password</h2>                                                                                         
         <label>New Password:</label>
         <input type="password" name="password" required>
         <label>Confirm Password:</label>
