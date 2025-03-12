@@ -1,8 +1,14 @@
 
 <?php
 session_start();
-//error_reporting(0);
+error_reporting(0);
 include("connection.php");
+
+
+require 'vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
@@ -30,9 +36,17 @@ if (isset($_POST['submit'])) {
         mysqli_stmt_bind_param($stmt, "ss", $token, $email);
         mysqli_stmt_execute($stmt);
 
+
         // Send reset link to user's email
         $reset_link = "http://localhost/allfiles/CRUD/reset_password.php?token=$token";
-        $subject = "Password Reset Request";
+
+
+
+
+
+
+
+                $subject = "Password Reset Request";
         $message = "Click the link below to reset your password: $reset_link";
         $headers = "From: noreply@yourwebsite.com";
 
@@ -45,7 +59,8 @@ if (isset($_POST['submit'])) {
         echo "Email not found!";
     }
 }
-?>
+
+  ?>
   
 <!DOCTYPE html>
 <html lang="en">

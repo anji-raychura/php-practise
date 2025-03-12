@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-// error_reporting(0);
+ error_reporting(0);
  include("connection.php");
 
 // error_reporting(0);
@@ -44,10 +44,19 @@ $result = mysqli_fetch_assoc($data);
 
 
 
-        <div class = "input_field">
-                <label>IMAGE </label>
-                <input type="file"  value=<?php echo $result['image_source']?>name="uploadfile" style="width:120%;" required>
-            </div>
+        <div class="input_field">
+    
+            <label class="image" style=" width: 50%;" >IMAGE </label>
+            <img src="<?php echo $result['image_source']; ?>" height="100" width="" alt="Current Image">
+        
+        </div>
+        
+        <div>
+            <input type="file" name="uploadfile" style="width:120%;">
+        </div>
+
+        <br>
+
 
             <div class = "input_field">
                 <label>First Name</label>
@@ -115,10 +124,10 @@ $result = mysqli_fetch_assoc($data);
             <div class ="input_field">
                      <label>caste</label>
                     <div class="radio-label">
-                        <input type="radio" name=caste value="Obc"id="OBC" required><label for="OBC">Obc</label>
-                        <input type="radio" name=caste value="Sc" id="SC" required><label for="SC">Sc</label><br/>
-                        <input type="radio" name=caste value="St"id="ST" required><label for="ST">St</label>
-                        <input type="radio" name=caste value="General" id="general" required><label for="general">General</label>
+                        <input type="radio" name=caste value="Obc"id="OBC" required  <?php if ($result['caste'] == 'Obc') echo "checked"; ?>><label for="OBC">Obc</label>
+                        <input type="radio" name=caste value="Sc" id="SC" required <?php if ($result['caste'] == 'Sc') echo "checked"; ?>><label for="SC">Sc</label><br/>
+                        <input type="radio" name=caste value="St"id="ST" required  <?php if ($result['caste'] == 'St') echo "checked"; ?>><label for="ST">St</label>
+                        <input type="radio" name=caste value="General"id="general" required <?php if ($result['caste'] == 'General') echo "checked"; ?>><label for="general">General</label>
                     </div>  
             </div>
 
@@ -150,15 +159,17 @@ if(isset($_POST['Update']))
     if (!isset($_POST['terms'])) {
         die("Error: You must agree to the terms and conditions.");
     }
-
-    $filename =  $_FILES["uploadfile"]["name"];
-    $tempname =  $_FILES["uploadfile"]["tmp_name"];
-    $folder = "photu/".$filename;
-    //move_uploaded_file($tempname, $folder);
-   
-    if (!move_uploaded_file($tempname, $folder)) {
-       die("File upload failed!");
-   }
+    if($_FILES["uploadfile"]["name"] != "") {
+        $filename = $_FILES["uploadfile"]["name"];
+        $tempname = $_FILES["uploadfile"]["tmp_name"];
+        $folder = "photu/".$filename;
+    
+        if (!move_uploaded_file($tempname, $folder)) {
+            die("File upload failed!");
+        }
+    } else {
+        $folder = $result['image_source']; // keep the old image path if no new image selected
+    }
 
 
 
@@ -198,6 +209,7 @@ if(isset($_POST['Update']))
     $ph_no = $_POST['ph_no'];
     $caste = $_POST['caste'];
     $adress = $_POST['adress'];
+    
 
 
     $query = "UPDATE alldata SET image_source='$folder', fname='$fname', lname='$lname', email='$email',
