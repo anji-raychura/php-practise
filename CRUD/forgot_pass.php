@@ -10,7 +10,7 @@ require 'vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['submit'])) { 
     $email = $_POST['email'];
 
     // Check if email exists
@@ -55,7 +55,7 @@ if (isset($_POST['submit'])) {
             $mail->Port = 587;                           
 
             // Recipients
-            $mail->setFrom('anjali@gmail.com', 'test Mailer');
+            $mail->setFrom('anjaliraychura1@gmail.com', 'test Mailer');
             $mail->addAddress($email);                  
 
             // Content
