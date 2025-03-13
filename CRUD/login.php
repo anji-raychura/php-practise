@@ -106,6 +106,9 @@ if (isset($_POST['login']))
 
         // exit();
      }
+     if (isset($_GET['reset']) && $_GET['reset'] == 'success') {
+    echo "<p style='color: green;'>✔ Password updated successfully. Please log in with your new password.</p>";
+}
     mysqli_stmt_close($check);
     mysqli_close($conn);
 }

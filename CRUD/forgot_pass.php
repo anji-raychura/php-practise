@@ -38,29 +38,44 @@ if (isset($_POST['submit'])) {
 
 
         // Send reset link to user's email
-        $reset_link = "http://localhost/allfiles/CRUD/reset_password.php?token=$token";
+        $reset_link = "http://localhost/allfiles/CRUD/reset_pass.php?token=$token";
 
 
 
 
+        $mail = new PHPMailer(true);
+        try {
+            // Server settings
+            $mail->isSMTP();                                  
+            $mail->Host = 'smtp.gmail.com';  
+            $mail->SMTPAuth = true;                       
+            $mail->Username = 'anjaliraychura1@gmail.com';    
+            $mail->Password = 'xafmqbwezcbozhyq';      
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;                           
 
+            // Recipients
+            $mail->setFrom('anjali@gmail.com', 'test Mailer');
+            $mail->addAddress($email);                  
 
+            // Content
+            $mail->isHTML(true);                         
+            $mail->Subject = 'Password Reset Request';
+            $mail->Body    = "Click the link below to reset your password: <a href='$reset_link'>$reset_link</a>";
 
-                $subject = "Password Reset Request";
-        $message = "Click the link below to reset your password: $reset_link";
-        $headers = "From: noreply@yourwebsite.com";
-
-        if (mail($email, $subject, $message, $headers)) {              
+            // Send the email
+            $mail->send();
             echo "Password reset link has been sent to your email.";
-        } else {
-            echo "Failed to send email.";
+        } catch (Exception $e) {
+            echo "Failed to send email. Mailer Error: {$mail->ErrorInfo}";
         }
     } else {
         echo "Email not found!";
     }
 }
+?>
 
-  ?>
+
   
 <!DOCTYPE html>
 <html lang="en">

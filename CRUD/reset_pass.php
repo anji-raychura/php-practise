@@ -2,38 +2,50 @@
 session_start();
 include("connection.php");
 
-if (isset($_GET['token'])) {
-    $token = $_GET['token'];
-} else {
-    die("Invalid token!");
+if (!isset($_GET['token'])) {
+    die("Invalid or missing token!");
 }
 
-if (isset($_POST['submit'])) {
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $new_password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
+    $token = $_GET['token'];
 
+    // Basic validation
     if ($new_password !== $confirm_password) {
-        die("Passwords do not match!");
-    }
-
-    if (strlen($new_password) < 5) {
-        die("Password must be at least 5 characters long.");
-    }
-
-    // Encrypt new password
-    $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
-
-    // Update password in the database
-    $query = "UPDATE alldata SET pswd=?, reset_token=NULL WHERE reset_token=?";
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "ss", $hashed_password, $token);
-    mysqli_stmt_execute($stmt);
-
-    if (mysqli_stmt_affected_rows($stmt) > 0) {
-        echo "Password updated successfully!";
-        echo "<a href='login.php'>Go to Login</a>";
+        echo "<p style='color:red;'> Passwords do not match!</p>";
+    } elseif (strlen($new_password) < 5) {
+        echo "<p style='color:red;'> Password must be at least 5 characters long.</p>";
     } else {
-        echo "Invalid or expired token!";
+        // Encrypt the new password
+        $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
+
+        // Update in the database
+        $query = "UPDATE alldata SET pswd=?, confirm_pswd=?, reset_token=NULL WHERE reset_token=?";
+        $stmt = mysqli_prepare($conn, $query);
+        if (!$stmt)
+         {
+                die("Query preparation failed: " . mysqli_error($conn));
+        }
+    mysqli_stmt_bind_param($stmt, "sss", $hashed_password, $confirm_password, $token);
+
+        // $query = "UPDATE alldata SET pswd=?, reset_token=NULL WHERE reset_token=?";
+        // $stmt = mysqli_prepare($conn, $query);
+
+        // if (!$stmt) {
+        //     die("Query preparation failed: " . mysqli_error($conn));
+        // }
+        // mysqli_stmt_bind_param($stmt, "ss", $hashed_password, $token);
+        mysqli_stmt_execute($stmt);
+
+        if (mysqli_stmt_affected_rows($stmt) > 0) {
+            // Redirect to login page with a success flag
+            header("Location: login.php?reset=success");
+            exit();
+        } else {
+            echo "<p style='color:red;'> Invalid or expired token!</p>";
+        }
     }
 }
 ?>
@@ -45,12 +57,14 @@ if (isset($_POST['submit'])) {
     <title>Reset Password</title>
 </head>
 <body>
-    <form action="" method="POST">
-        <h2>Reset Password</h2>                                                                                         
+    <form method="POST">
+        <h2>Reset Password</h2>
         <label>New Password:</label>
-        <input type="password" name="password" required>
+        <input type="password" name="password" required><br><br>
+
         <label>Confirm Password:</label>
-        <input type="password" name="confirm_password" required>
+        <input type="password" name="confirm_password" required><br><br>
+
         <button type="submit" name="submit">Reset Password</button>
     </form>
 </body>
