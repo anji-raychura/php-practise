@@ -66,6 +66,7 @@ if (isset($_POST['submit'])) {
             // Send the email
             $mail->send();
             echo "Password reset link has been sent to your email.";
+            header("location : login.php");
         } catch (Exception $e) {
             echo "Failed to send email. Mailer Error: {$mail->ErrorInfo}";
         }

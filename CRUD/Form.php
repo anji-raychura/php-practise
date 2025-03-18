@@ -133,7 +133,7 @@ if(isset($_POST['register']))
      $caste = $_POST['caste'];
      $adress = $_POST['adress'];
      
-     $hashed_password = password_hash($pswd, PASSWORD_BCRYPT);
+    $hashed_password = password_hash($pswd, PASSWORD_BCRYPT);
 
 
 $query = "INSERT INTO alldata 
