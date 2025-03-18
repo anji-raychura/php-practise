@@ -39,14 +39,6 @@ include("connection.php");
                  <a href="forgot_pass.php" class="link">Forgot Password?</a>                                         
                 </div>
 
-
-                <!-- <div class="forgetpassword">                                             
-                    <a href="#" class="link">
-                    <label>Forget Password</label>                                         
-                    
-                </div>  -->
-
-
                 <!-- Add a submit button -->
                 <div class="input_field">
                     <input type="submit" value="Log in" class="btn" name="login">
@@ -64,52 +56,52 @@ include("connection.php");
 if (isset($_POST['login']))
  {
     // Get user input & sanitize
-    $username = $_POST['email'];
-    $password = $_POST['pswd'];
+    $username = trim($_POST['email']);
+    $password = trim($_POST['pswd']);
 
     // // Ensure password is not empty
     // if (empty($password)) {
     //     echo "Password cannot be empty!";
-    //     exit();
+    //     exit();   
     // }
 
     // Use prepared statement to prevent SQL Injection
-    $query = "SELECT pswd FROM alldata WHERE email = ?";
+    $query = "SELECT email, pswd FROM alldata WHERE email = ?";
     $check = mysqli_prepare($conn, $query);
     
     mysqli_stmt_bind_param($check, "s", $username);
     mysqli_stmt_execute($check);
     $result = mysqli_stmt_get_result($check);   
+    
     $row = mysqli_fetch_assoc($result);
-    print_r($row);
-   
-    if ($row)
-    {
-        $hashedpwd = $row['pswd']; // Hashed password from DB
-        
+
+    if ($row){
+        $hashedpwd  = $row['pswd']; // Hashed password from DB
         // Verify password
-        if (password_verify($password, $hashedpwd))
-        {
+        // var_dump(password_verify($pasword, $hashedpwd)); // Should output true if passwords match
+        echo "Entered: $password<br>";
+        echo "Hashed DB: $hashedpwd<br>";
+        
+        if (password_verify($password, $hashedpwd)){
             $_SESSION['username'] = $username;
 
             header("Location: data.php");
             exit();
-        } else
-         {
-            echo "no user Founds";
+        } else{
+            echo "Password not match";
             // exit();
          }
-    } 
-    else
-     {
+     } else
+{
         echo "<script>alert('No user found with this email!'); window.location.href='login.php';</script>";
 
         // exit();
      }
-     if (isset($_GET['reset']) && $_GET['reset'] == 'success') {
-    echo "<p style='color: green;'>✔ Password updated successfully. Please log in with your new password.</p>";
+    //  if (isset($_GET['reset']) && $_GET['reset'] == 'success') {
+    // echo "<p style='color: green;'> Password updated successfully. Please log in with your new password.</p>";
+    // mysqli_stmt_close($check);
+    // mysqli_close($conn);
 }
-    mysqli_stmt_close($check);
-    mysqli_close($conn);
-}
+
+
 ?>

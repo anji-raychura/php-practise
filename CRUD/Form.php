@@ -2,7 +2,6 @@
 
 <?php 
 session_start();
-error_reporting(0);
 include("connection.php");?> 
 
 
@@ -39,7 +38,7 @@ include("connection.php");?>
                 <input type="email" class="input" name="email" required>
             </div>                                   
             <div class ="input_field">
-                <label>Password</label>                                         
+                <label>Password</label>                                           
                 <input type="password" class="input" name="pswd" required>
             </div>
             <div class ="input_field">
@@ -122,15 +121,19 @@ if(isset($_POST['register']))
         die("Error: Passwords do not match.");
     }
 
-
+// 
 
      // Encrypt password
-     $hashed_password = password_hash($pswd, PASSWORD_BCRYPT);  
-
-    $gender = $_POST['gender'];
-    $ph_no = $_POST['ph_no'];
-    $caste = $_POST['caste'];
-    $adress = $_POST['adress'];
+     //  $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+     // Insert $hashed_password into the database
+     
+     
+     $gender = $_POST['gender'];
+     $ph_no = $_POST['ph_no'];
+     $caste = $_POST['caste'];
+     $adress = $_POST['adress'];
+     
+     $hashed_password = password_hash($pswd, PASSWORD_BCRYPT);
 
 
 $query = "INSERT INTO alldata 
@@ -146,7 +149,7 @@ VALUES
     $data = mysqli_query($conn, $query);
     if ($data) {
         echo "Data inserted successfully!";
-        header('location: login.php');
+        header('Location: login.php');
     } else {
         die("Error: " . mysqli_error($conn));  // Show MySQL error
     }

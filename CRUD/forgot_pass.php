@@ -55,7 +55,7 @@ if (isset($_POST['submit'])) {
             $mail->Port = 587;                           
 
             // Recipients
-            $mail->setFrom('anjaliraychura1@gmail.com', 'Maile Testing');
+            $mail->setFrom('anjaliraychura1@gmail.com', 'test Mailer');
             $mail->addAddress($email);                  
 
             // Content
