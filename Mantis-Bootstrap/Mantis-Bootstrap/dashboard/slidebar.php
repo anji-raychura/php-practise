@@ -4,7 +4,7 @@
     <div class="m-header">
       <a href="" class="b-brand text-primary">
         <!-- ========   Change your logo from here   ============ -->
-        <img src="<?php echo '/allfiles/Mantis-Bootstrap/Mantis-Bootstrap/dashboard/imagess/logooo.jpg'; ?>"  alt="logo"  style="width: 50px; height: 50px; display: block !important;">
+        <img src="imagess/logooo.jpg"  alt="logo"  style="width: 50px; height: 50px; display: block !important;">
         </a>
     </div>
     <div class="navbar-content">
@@ -44,13 +44,13 @@
           <i class="ti ti-news"></i>
         </li>
         <li class="pc-item">
-          <a href="https://themewagon.github.io/Mantis-Bootstrap/pages/login.html" class="pc-link">
-            <span class="pc-micon"><i class="ti ti-lock"></i></span>
+        <a href="login.php" class="pc-link">
+        <span class="pc-micon"><i class="ti ti-lock"></i></span>
             <span class="pc-mtext">Login</span>
           </a>
         </li>
         <li class="pc-item">
-          <a href="https://themewagon.github.io/Mantis-Bootstrap/pages/register.html" class="pc-link">
+          <a href="register.php" class="pc-link">
             <span class="pc-micon"><i class="ti ti-user-plus"></i></span>
             <span class="pc-mtext">Register</span>
           </a>

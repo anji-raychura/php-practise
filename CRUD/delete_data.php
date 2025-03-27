@@ -1,6 +1,6 @@
 <?php
 include("connection.php");
-
+    
 $ID = $_GET['id'];
 
 $query = "DELETE FROM alldata WHERE id = '$ID'";

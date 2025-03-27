@@ -1,7 +1,7 @@
 
 <?php
 session_start();
- error_reporting(0);
+error_reporting(0);
  include("connection.php");
 
 // error_reporting(0);
@@ -195,7 +195,7 @@ if(isset($_POST['Update']))
        
     //     $hashed_password = $result['pswd'];
     // } else {
-    //     // નવું પાસવર્ડ આપ્યું હોય તો એન્ક્રિપ્ટ કરો
+    //     // new pass encrypt 
     //     $hashed_password = password_hash($pswd, PASSWORD_BCRYPT);
     //  //   $hashed_password = password_hash($_POST['pswd'], PASSWORD_BCRYPT);
     // }

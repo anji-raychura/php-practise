@@ -72,7 +72,7 @@ if (isset($_POST['login']))
     // if (empty($password)) {
     //     echo "Password cannot be empty!";
     //     exit();
-    // }
+    // }s
 
     // Use prepared statement to prevent SQL Injection
     $query = "SELECT pswd FROM alldata WHERE email = ?";
@@ -82,7 +82,7 @@ if (isset($_POST['login']))
     mysqli_stmt_execute($check);
     $result = mysqli_stmt_get_result($check);   
     $row = mysqli_fetch_assoc($result);
-    print_r($row);
+    //print_r($row);
    
     if ($row)
     {

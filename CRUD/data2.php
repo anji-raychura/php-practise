@@ -14,7 +14,7 @@ $query = "SELECT * FROM alldata";
 $data = mysqli_query($conn, $query);
 $total = mysqli_num_rows($data);
 
-if ($total > 0) {
+if ($total > 0) { 
 ?>
     <table border="3px">
         <tr>

@@ -1,7 +1,21 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+    exit();
+}
+
 include('connection.php');
 include('slidebar.php');
 include('header.php');
+
+$query = "SELECT * FROM newdata";
+
+$data = mysqli_query($conn,$query);
+
+$total = mysqli_num_rows($data);
+
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +49,8 @@ include('header.php');
   <!-- [Template CSS Files] -->
   <link rel="stylesheet" href="../assets/css/style.css" id="main-style-link" >
   <link rel="stylesheet" href="../assets/css/style-preset.css" >
+  <link rel="stylesheet" href="stylelogin.css">
+
   
 </head>
 <!-- [Head] end -->
@@ -53,7 +69,7 @@ include('header.php');
   <div class="pc-container">
     <div class="pc-content">
       <!-- [ Main Content ] start -->
-     
+       
 <div class="page-header">
         <div class="page-block">
           <div class="row align-items-center">
@@ -69,9 +85,68 @@ include('header.php');
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
+</div>
+<?php
+if($total != 0)
+{
+?>
+      <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>password</th>
+      <th>Confirm password</th>
+      <th>Phone No</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+   <?php
+    while($result = mysqli_fetch_assoc($data))
+    {
+      echo "<tr>
+                <td>".$result['ID']."</td>
+                <td>".$result['username']."</td>
+                <td>".$result['email']."</td>
+                <td>".$result['Pswd']."</td>
+                <td>".$result['confirm_pswd']."</td>
+                <td>".$result['phone_no']."</td>
+
+                <td> <a href='update.php?id=$result[ID]'>
+           <button class='button'> UPDATE </button></a> 
+
+            <a href='delete.php?id=$result[ID]'>
+             <button class='button2' onclick = 'return checkdate()'> DELETE </button></a> 
+        </td>
+      ";
+    }
+  }
+  else{
+    echo "there is no record";
+ } 
+   
+   ?>
+</table>
+
+<a href="logout.php">
+
+<input type="submit" value="Logout" name=""  style="background: blue; color: white; height:35px; width:100px; margin-top:20px;
+                font-size: 18px; border:0; border-radius:5px; cursor:pointer;">
+</a>
+
+<!-- echo $result['fname']." ".$result['lname']." ".$result['email']." ".$result['pswd']." ".$result['confirm_pswd']." ".$result['gender']." ".$result['ph_no']." ".$result['adress']."<br>";    -->
+<script>
+
+    function checkdate()
+    {
+        return confirm('Are Youy sure want to delete ?');
+    }
+</script>   
+
+
+    </div>     <!-- [ PC-Content ] end -->
+  </div>      <!-- [ PC-CONTAINER ] end -->
   <!-- [ Main Content ] end -->
   
   
@@ -109,7 +184,7 @@ include('header.php');
   <script>font_change("Public-Sans");</script>
 
 <?php
-include('footer.php');
+//include('footer.php');
 
 ?>
   

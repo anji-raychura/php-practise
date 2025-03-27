@@ -6,7 +6,6 @@ if (!isset($_GET['token'])) {
     die("Invalid or missing token!");
 }
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $new_password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
@@ -22,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
 
         // Update in the database
-        $query = "UPDATE alldata SET pswd=?, confirm_pswd=?, reset_token=NULL WHERE reset_token=?";
+        $query = "UPDATE alldata SET pswd=?, confirm_pswd=?,WHERE reset_token=?";
         $stmt = mysqli_prepare($conn, $query);
         if (!$stmt)
          {
@@ -69,3 +68,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
 </body>
 </html>
+
+
